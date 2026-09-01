@@ -1,0 +1,92 @@
+# ~/.config/starship.toml
+# A sensible Starship config: fast, informative, not noisy.
+# Docs: https://starship.rs/config/
+
+# Slightly more headroom for slow commands (git in big repos, etc.)
+command_timeout = 1000
+
+# Blank line between prompts for readability
+add_newline = true
+
+# Prompt format: keep the default module order, single line.
+# (Uncomment the two-line variant below if you prefer input on its own line.)
+# format = """$all$line_break$character"""
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold yellow)"
+
+[directory]
+truncation_length = 3          # show last 3 path components
+truncate_to_repo = true        # but never truncate past the repo root
+style = "bold cyan"
+read_only = " 󰌾"
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+
+[git_status]
+style = "bold yellow"
+# Compact, symbol-only status
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
+modified = "!${count}"
+staged = "+${count}"
+stashed = "≡"
+
+# Show how long the last command took, but only if it was slow
+[cmd_duration]
+min_time = 2000                # ms
+format = "took [$duration](bold yellow) "
+
+# Only show language versions when relevant files are present (default
+# behavior), and keep the symbols minimal. Nerd Font required for icons;
+# if you're not using one, replace symbols with plain text like "py ".
+[python]
+symbol = " "
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[nodejs]
+symbol = " "
+# Node version is rarely useful outside JS projects; keep it quiet
+detect_extensions = []
+detect_files = ["package.json", ".node-version", ".nvmrc"]
+
+[rust]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[lua]
+symbol = " "
+
+# Disable modules that tend to add noise
+[package]
+disabled = true                # don't show package.json/Cargo.toml version
+
+[docker_context]
+disabled = true                # only useful if you juggle docker contexts
+
+[aws]
+disabled = true                # enable if you work with AWS profiles a lot
+
+[gcloud]
+disabled = true
+
+# Show exit code only on failure (part of $status module)
+[status]
+disabled = false
+symbol = "✘ "
+format = "[$symbol$status]($style) "
+style = "bold red"
+
+# Battery warning only when actually low
+[battery]
+[[battery.display]]
+threshold = 15
+style = "bold red"
